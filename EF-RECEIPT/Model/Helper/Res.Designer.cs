@@ -61,6 +61,15 @@ namespace EF_RECEIPT.Model.Helper {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Da Ton Tai:.
+        /// </summary>
+        internal static string DaTonTai {
+            get {
+                return ResourceManager.GetString("DaTonTai", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Don Vi Tinh:.
         /// </summary>
         internal static string DonViTinh {
@@ -93,6 +102,15 @@ namespace EF_RECEIPT.Model.Helper {
         internal static string GiaBan {
             get {
                 return ResourceManager.GetString("GiaBan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Khong TonTai:.
+        /// </summary>
+        internal static string KhongTonTai {
+            get {
+                return ResourceManager.GetString("KhongTonTai", resourceCulture);
             }
         }
         
