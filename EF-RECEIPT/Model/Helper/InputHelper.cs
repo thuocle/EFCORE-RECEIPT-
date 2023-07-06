@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace EF_RECEIPT.Model.Helper
 {
+    public enum inputType
+    {
+        Them
+    }
     public class InputHelper
     {
       #region CheckBeforeGetInput

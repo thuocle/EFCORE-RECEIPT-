@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EF_RECEIPT.Model.Helper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,19 @@ namespace EF_RECEIPT.Model.Entities
         public PhieuThu PhieuThu { get; set; }
         public int SoLuongBan { get; set; }
 
+        public ChiTietPhieuThu(inputType it)
+        {
+            if(it == inputType.Them)
+            {
+                NguyenLieuID = InputHelper.InputINT(Res.NguyenLieuID, Res.Err);
+                PhieuThuID = InputHelper.InputINT(Res.PhieuThuID, Res.Err);
+                SoLuongBan = InputHelper.InputINT(Res.SoLuongBan, Res.Err);
 
+            }
+        }
+        public ChiTietPhieuThu()
+        {
+            
+        }
     }
 }
