@@ -68,11 +68,11 @@ namespace EF_RECEIPT.Model.Helper
         }
         #endregion
         #region CheckBeforeCRUD
-        public bool CheckLoaiNguyenLieuRule(LoaiNguyenLieu loai)
+        public static bool CheckLoaiNguyenLieuRule(LoaiNguyenLieu loai)
         {
             return loai.TenLoai.Length <= 20 && loai.MoTa.Length <= int.MaxValue;
         }
-        public bool CheckNguyenLieuRule(NguyenLieu nl)
+        public static bool CheckNguyenLieuRule(NguyenLieu nl)
         {
             return nl.TenNguyenLieu.Length <= 20 && nl.DonViTinh.Length <= 10;
         } 

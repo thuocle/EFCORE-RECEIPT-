@@ -21,7 +21,6 @@ namespace EF_RECEIPT.Model.Entities
             if(it == inputType.Them)
             {
                 NguyenLieuID = InputHelper.InputINT(Res.NguyenLieuID, Res.Err);
-                PhieuThuID = InputHelper.InputINT(Res.PhieuThuID, Res.Err);
                 SoLuongBan = InputHelper.InputINT(Res.SoLuongBan, Res.Err);
 
             }
