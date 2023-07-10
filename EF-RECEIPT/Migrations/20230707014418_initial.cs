@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -30,7 +31,7 @@ namespace EF_RECEIPT.Migrations
                 {
                     PhieuThuID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NgayLap = table.Column<int>(type: "int", nullable: false),
+                    NgayLap = table.Column<DateTime>(type: "datetime2", nullable: false),
                     NhanVienLap = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     GhiChu = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ThanhTien = table.Column<double>(type: "float", nullable: false)

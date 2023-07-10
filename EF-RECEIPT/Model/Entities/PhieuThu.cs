@@ -10,7 +10,7 @@ namespace EF_RECEIPT.Model.Entities
     public class PhieuThu
     {
         public int PhieuThuID { get; set; }
-        public int NgayLap { get; set; }
+        public DateTime NgayLap { get; set; }
         public string NhanVienLap { get; set; }
         public string GhiChu { get; set; }
         public double ThanhTien { get; set; }
@@ -19,7 +19,8 @@ namespace EF_RECEIPT.Model.Entities
         {
             if (it == inputType.Them)
             {
-                NgayLap = InputHelper.InputINT(Res.NgayLap, Res.Err);
+                NgayLap = InputHelper.InputDT(Res.NgayLap, Res.Err, new DateTime(2023,7,1), 
+                    new DateTime(2023, 7, 6));
                 NhanVienLap = InputHelper.InputSTR(Res.NhanVienLap, Res.Err);
                 GhiChu = InputHelper.InputSTR(Res.GhiChu, Res.Err);
             }

@@ -33,12 +33,15 @@ namespace EF_RECEIPT.Controller.Services
                         Console.WriteLine(Res.ThatBai);
                         return;
                     }
-                    if(isIngredient(nl.NguyenLieuID)== null)
+                    if(isIngredient(nl.LoaiNguyenLieuID)== null)
                     {
                         Console.WriteLine(Res.KhongTonTai);
                         Console.WriteLine(Res.ThatBai);
                         return;
                     }
+                    dbContext.Add(nl);
+                    dbContext.SaveChanges();
+                    Console.WriteLine(Res.ThanhCong);
                     trans.Commit();
                 }
                 catch (Exception)

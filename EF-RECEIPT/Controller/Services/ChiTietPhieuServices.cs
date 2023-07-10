@@ -14,6 +14,7 @@ namespace EF_RECEIPT.Controller.Services
         {
             this.dbContext = new AppDbContext();
         }
+        #region Private method
         private PhieuThu isReceipt(int phieuId)
         {
             return dbContext.PhieuThu.FirstOrDefault(x => x.PhieuThuID == phieuId);
@@ -24,13 +25,13 @@ namespace EF_RECEIPT.Controller.Services
         }
         private bool checkIngredientExistence(ChiTietPhieuThu ct)
         {
-            var nl = dbContext.ChiTietPhieuThu.FirstOrDefault(x => x.PhieuThuID == ct.PhieuThuID);
-            return nl.NguyenLieuID == ct.NguyenLieuID;
+            var nl = dbContext.ChiTietPhieuThu.FirstOrDefault(x => x.PhieuThuID == ct.PhieuThuID && x.NguyenLieuID== ct.NguyenLieuID);
+            return  nl != null;
         }
         private bool CheckQuantityBeforeAdd(ChiTietPhieuThu ct)
         {
             var ngl = dbContext.NguyenLieu.FirstOrDefault(x => x.NguyenLieuID == ct.NguyenLieuID);
-            return ngl.SoLuongKho > ct.SoLuongBan;
+            return ngl.SoLuongKho >= ct.SoLuongBan;
         }
         private void UpdateQuantity(ChiTietPhieuThu ct)
         {
@@ -41,16 +42,19 @@ namespace EF_RECEIPT.Controller.Services
                 dbContext.Update(nglieu);
                 dbContext.SaveChanges();
             }
-        } 
+        }
         private void updateReceiptTotalAmount(ChiTietPhieuThu ct)
         {
-            var phieu = dbContext.PhieuThu.FirstOrDefault(x=>x.PhieuThuID == ct.PhieuThuID);
-            var nglieu = dbContext.NguyenLieu.FirstOrDefault(x=>x.NguyenLieuID == ct.NguyenLieuID);
+            var phieu = dbContext.PhieuThu.FirstOrDefault(x => x.PhieuThuID == ct.PhieuThuID);
+            var nglieu = dbContext.NguyenLieu.FirstOrDefault(x => x.NguyenLieuID == ct.NguyenLieuID);
             if (phieu != null && nglieu != null)
             {
                 phieu.ThanhTien += (nglieu.GiaBan * ct.SoLuongBan);
+                dbContext.Update(phieu);
+                dbContext.SaveChanges();
             }
         }
+        #endregion
         public void addListReceiptDetail(int phieuID)
         {
             using (var trans = dbContext.Database.BeginTransaction())
@@ -68,14 +72,19 @@ namespace EF_RECEIPT.Controller.Services
                     for (int i = 0; i < so; i++)
                     {
                         var ct = new ChiTietPhieuThu(inputType.Them) { PhieuThuID = phieuID };
-                        if(CheckQuantityBeforeAdd(ct) && isIngredient(ct) != null)
+                        if(CheckQuantityBeforeAdd(ct) && isIngredient(ct) != null && !checkIngredientExistence(ct))
                         {
                             dbContext.Add(ct);
                             dbContext.SaveChanges();
                             UpdateQuantity(ct);
                             updateReceiptTotalAmount(ct);
                         }
-                        continue;
+                        else
+                        {
+                            Console.WriteLine(Res.Err);
+                            Console.WriteLine(Res.ThatBai);
+                            return;
+                        }
                     }
                     Console.WriteLine(Res.ThanhCong);
                     trans.Commit();

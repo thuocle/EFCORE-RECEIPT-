@@ -22,8 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controller\IServices\" />
-    <Folder Include="Controller\Services\" />
     <Folder Include="View\" />
   </ItemGroup>
 
